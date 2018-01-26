@@ -305,6 +305,8 @@ open class WWCalendarTimeSelector: UIViewController, UITableViewDelegate, UITabl
     /// Defaults to `nil`.
     open var optionTopPanelTitle: String? = nil
     
+    open var optionWeekDayStrings : [String]? = nil
+    
     /// Set `optionSelectionType` with one of the following:
     ///
     /// `Single`: This will only allow the selection of a single date. If applicable, this also allows selection of year and time.
@@ -1612,6 +1614,7 @@ open class WWCalendarTimeSelector: UIViewController, UITableViewDelegate, UITabl
                 calRow.translatesAutoresizingMaskIntoConstraints = false
                 calRow.delegate = self
                 calRow.backgroundColor = UIColor.clear
+                calRow.optionWeekdays = optionWeekDayStrings
                 calRow.monthFont = optionCalendarFontMonth
                 calRow.monthFontColor = optionCalendarFontColorMonth
                 calRow.dayFont = optionCalendarFontDays
@@ -2025,7 +2028,7 @@ internal protocol WWCalendarRowProtocol: NSObjectProtocol {
 
 internal class WWCalendarRow: UIView {
     
-    static var optionWeekdays : [String]? = nil
+    internal var optionWeekdays : [String]? = nil
     
     internal weak var delegate: WWCalendarRowProtocol!
     internal var monthFont: UIFont!
@@ -2093,7 +2096,7 @@ internal class WWCalendarRow: UIView {
             let dayHeight = ceil(dayFont.lineHeight)
             let y = (boxHeight - dayHeight) / 2
             let formatter = DateFormatter()
-            let days = WWCalendarRow.optionWeekdays ?? (formatter.veryShortWeekdaySymbols ?? ["S", "M", "T", "W", "T", "F", "S"])
+            let days = optionWeekdays ?? (formatter.veryShortWeekdaySymbols ?? ["S", "M", "T", "W", "T", "F", "S"])
             for (index, element) in days.enumerated() {
                 let str = NSAttributedString(string: element, attributes: [NSAttributedStringKey.font: dayFont, NSAttributedStringKey.foregroundColor: dayFontColor, NSAttributedStringKey.paragraphStyle: paragraph])
                 str.draw(in: CGRect(x: CGFloat(index) * boxWidth, y: y, width: boxWidth, height: dayHeight))
