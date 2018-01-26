@@ -56,8 +56,27 @@ extension Date {
         return components.month!
     }
     
-    var weekday: Int {
+    //Changed to be able to use Monday as first weekday
+    static var systemWeekdayEuro: Bool?
+    
+    var originalWeekday: Int {
         return components.weekday!
+    }
+    
+    var weekday: Int {
+        if Date.systemWeekdayEuro == nil {
+            let testDate = Date(timeIntervalSince1970: 0)
+            Date.systemWeekdayEuro = testDate.components.weekday == 4
+        }
+        if Date.systemWeekdayEuro == true {
+            return originalWeekday
+        }
+        let weekdayNumber = components.weekday!
+        let result = (weekdayNumber - 1) % 7
+        if result == 0 {
+            return 7
+        }
+        return result
     }
     
     var day: Int {

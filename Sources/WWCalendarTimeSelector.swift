@@ -2025,6 +2025,8 @@ internal protocol WWCalendarRowProtocol: NSObjectProtocol {
 
 internal class WWCalendarRow: UIView {
     
+    static var optionWeekdays : [String]? = nil
+    
     internal weak var delegate: WWCalendarRowProtocol!
     internal var monthFont: UIFont!
     internal var monthFontColor: UIColor!
@@ -2091,7 +2093,7 @@ internal class WWCalendarRow: UIView {
             let dayHeight = ceil(dayFont.lineHeight)
             let y = (boxHeight - dayHeight) / 2
             let formatter = DateFormatter()
-            let days = formatter.veryShortWeekdaySymbols ?? ["S", "M", "T", "W", "T", "F", "S"]
+            let days = WWCalendarRow.optionWeekdays ?? (formatter.veryShortWeekdaySymbols ?? ["S", "M", "T", "W", "T", "F", "S"])
             for (index, element) in days.enumerated() {
                 let str = NSAttributedString(string: element, attributes: [NSAttributedStringKey.font: dayFont, NSAttributedStringKey.foregroundColor: dayFontColor, NSAttributedStringKey.paragraphStyle: paragraph])
                 str.draw(in: CGRect(x: CGFloat(index) * boxWidth, y: y, width: boxWidth, height: dayHeight))
