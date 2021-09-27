@@ -2111,7 +2111,7 @@ internal class WWCalendarRow: UIView {
                        
                        let shortWeekdaySymbols = Calendar.current.shortWeekdaySymbols
 
-                       let days: [String] = Array(shortWeekdaySymbols[Calendar.current.firstWeekday - 1 ..< Calendar.current.veryShortWeekdaySymbols.count] + shortWeekdaySymbols[0 ..< Calendar.current.firstWeekday - 1])
+                       let days: [String] = Array(formatter.shortWeekdaySymbols[Calendar.current.firstWeekday - 1 ..< Calendar.current.veryShortWeekdaySymbols.count] + shortWeekdaySymbols[0 ..< Calendar.current.firstWeekday - 1])
             
             //let days = optionWeekdays ?? (formatter.veryShortWeekdaySymbols ?? ["S", "M", "T", "W", "T", "F", "S"])
             for (index, element) in days.enumerated() {
