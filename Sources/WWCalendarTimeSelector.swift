@@ -2105,15 +2105,8 @@ internal class WWCalendarRow: UIView {
             let dayHeight = ceil(dayFont.lineHeight)
             let y = (boxHeight - dayHeight) / 2
             let formatter = DateFormatter()
-                       
-                       formatter.locale = Locale(identifier: optionCalendarLocale)
-                       formatter.calendar = Calendar.autoupdatingCurrent
-                       
-                       let shortWeekdaySymbols = Calendar.current.shortWeekdaySymbols
-
-                       let days: [String] = Array(formatter.shortWeekdaySymbols[Calendar.current.firstWeekday - 1 ..< Calendar.current.veryShortWeekdaySymbols.count] + shortWeekdaySymbols[0 ..< Calendar.current.firstWeekday - 1])
-            
-            //let days = optionWeekdays ?? (formatter.veryShortWeekdaySymbols ?? ["S", "M", "T", "W", "T", "F", "S"])
+             formatter.locale = Locale(identifier: optionCalendarLocale)        
+            let days = optionWeekdays ?? (formatter.veryShortWeekdaySymbols ?? ["S", "M", "T", "W", "T", "F", "S"])
             for (index, element) in days.enumerated() {
                 let str = NSAttributedString(string: element, attributes: [NSAttributedString.Key.font: dayFont, NSAttributedString.Key.foregroundColor: dayFontColor, NSAttributedString.Key.paragraphStyle: paragraph])
                 str.draw(in: CGRect(x: CGFloat(index) * boxWidth, y: y, width: boxWidth, height: dayHeight))
