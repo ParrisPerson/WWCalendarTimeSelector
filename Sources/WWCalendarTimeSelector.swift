@@ -458,6 +458,9 @@ open class WWCalendarTimeSelector: UIViewController, UITableViewDelegate, UITabl
     open var optionMainPanelBackgroundColor = UIColor.white
     open var optionBottomPanelBackgroundColor = UIColor.white
 
+    open var auxDate1: Date? = nil
+    open var auxDate2: Date? = nil
+
     /// Set global tint color.
     open var optionTintColor : UIColor! {
         get{
@@ -657,6 +660,9 @@ open class WWCalendarTimeSelector: UIViewController, UITableViewDelegate, UITabl
     fileprivate var multipleDatesLastAdded: Date?
     fileprivate var flashDate: Date?
     fileprivate let defaultTopPanelTitleForMultipleDates = "Select Multiple Dates"
+    
+
+    
     fileprivate var viewBoundsHeight: CGFloat {
         return view.bounds.height - topLayoutGuide.length - bottomLayoutGuide.length
     }
@@ -825,6 +831,16 @@ open class WWCalendarTimeSelector: UIViewController, UITableViewDelegate, UITabl
     open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         isFirstLoad = false
+    }
+    
+    open override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if (auxDate1 != nil && auxDate2 != nil){
+            self.optionCurrentDateRange.setStartDate(auxDate1!)
+            self.optionCurrentDateRange.setEndDate(auxDate2!)
+        }
+        viewDidLoad()
+        dismiss()
     }
 
     open override var preferredStatusBarStyle: UIStatusBarStyle {
